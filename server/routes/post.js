@@ -10,8 +10,8 @@ router
 
 .post('/getpost', async (req, res) => {
     try {
-      let noteget = await post.getpost(req.body.id);
-      res.send(noteget)
+      let postget = await post.getpost(req.body.id);
+      res.send(postget)
     } catch(err) {
       res.status(401).send({message: err.message});
     }
