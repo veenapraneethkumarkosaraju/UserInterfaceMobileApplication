@@ -1,53 +1,74 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { fetchData } from "../../main.js";
-import { useNavigate } from "react-router-dom";
-const AddPost = () => {
-  const navigate = useNavigate();
-    const [post, setPost] = useState({
-        title: '', 
-        content: '',
-      });
-    
-      const { title, content } = post;
-    
-      const onChange = (e) => setPost({ ...post, [e.target.name]: e.target.value })
 
-      const onSubmit = (e) => {
-        e.preventDefault();
-        let user = localStorage.getItem('user');
-        let parseUser = JSON.parse(user);
-        let userId = parseUser.userName;
-        fetchData("/post/create",
-          {
-            title,
-            content,
-            userId
-          },
-          "POST")
-          .then((data) => {
-            if (data) {
-              console.log(data);
-              navigate('/posts');
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
 
-    return (
-        <form>
-            <div class="form-group">
-                <label htmlFor="title">Title</label>
-                <input type="text" name="title" className="form-control" id="title" onChange={onChange} placeholder="Enter title"/>
-            </div>
-            <div class="form-group">
-                <label htmlFor="content">Content</label>
-                <textarea className="form-control" name="content" id="content" onChange={onChange} rows="5"></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={onSubmit}>Submit</button>
-        </form>
-    )
+const Profile = () => {
+  
+  const [post, setPost] = useState({
+   
+    postcontent: ""
+  });
+
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const loggedInUsername = user.username;
+    setUsername(loggedInUsername);
+  }, []);
+
+  const { postcontent } = post;
+
+
+  const onChange = (e) => setPost({ ...post, [e.target.name]: e.target.value });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let user = localStorage.getItem("user");
+    let parseUser = JSON.parse(user);
+    let userId = parseUser.username; // Corrected property name
+    fetchData("/post/createpost", 
+    {
+        userId,
+         postcontent 
+        },
+         "POST")
+      .then((data) => {
+        if (data) {
+          console.log(data);
+          
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+
+
+  return (
+    <div>
+    <form>
+      <h3>Welcome, {username}</h3>
+      <div className="postdetails">
+        
+      </div>
+      <div className="postdetails">
+        <label htmlFor="postcontent" className="form-label">Enter your Message here...</label><br />
+        <textarea 
+        name="postcontent"
+        className="postcontent"
+        id="postcontent"
+        onChange={onChange}
+        rows="5"
+        placeholder="Please enter your post message here..!" 
+       ></textarea>
+      </div>
+
+      <button type="submit" className="btn btn-primary" onClick={onSubmit}>Submit</button>
+    </form>
+    </div>
+  );
 }
 
-export default AddPost;
+export default Profile;

@@ -1,5 +1,5 @@
 export async function fetchData(route='', data={},methodType){
-    const responce=await fetch('http://localhost://5000${route}',{
+    const response=await fetch(`http://localhost:5000${route}`,{
         method: methodType,
         headers: {
             'Content-Type': 'application/json'
@@ -7,10 +7,10 @@ export async function fetchData(route='', data={},methodType){
         body: JSON.stringify(data)
     });
     //dealing with our responce from server
-    if(responce.ok){
-        return await responce.json();
+    if(response.ok){
+        return await response.json();
     }else{
-        throw await responce.json();
+        throw await response.json();
     }
 
 

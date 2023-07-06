@@ -44,12 +44,12 @@ const onSubmit =(e) => {
 
     return (
 <div className="registerdetails" id="registration">
-      <form onSubmit={onSubmit}>
+      <form className="form" onSubmit={onSubmit}>
         <div className="registerdetails" id="registration">
           <label htmlFor="firstname" className="form-label">Firstname</label>
           <input 
             type="text" 
-            className="form-control" 
+            className="form-label" 
             id="firstname"
             name='firstname'
             onChange={onChange}
@@ -61,7 +61,7 @@ const onSubmit =(e) => {
           <label htmlFor="lastname" className="form-label">Lastname</label>
           <input 
             type="text" 
-            className="form-control" 
+            className="form-label" 
             id="lastname"
             name='lastname'
             onChange={onChange}
@@ -73,7 +73,7 @@ const onSubmit =(e) => {
           <label htmlFor="username" className="form-label">Username</label>
           <input 
             type="text" 
-            className="form-control" 
+            className="form-label" 
             id="username"
             name='username'
             onChange={onChange}
@@ -85,7 +85,7 @@ const onSubmit =(e) => {
         <label htmlFor="password" className="form-label">Password</label>
           <input 
             type="password" 
-            className="form-control" 
+            className="form-label" 
             id="password"
             name='password'
             onChange={onChange}
@@ -93,6 +93,8 @@ const onSubmit =(e) => {
             required
           />
         </div>
+<p>Login for Exisiting Account ? <a href="login">Login</a></p>
+
         <input type="submit" className="btn btn-primary" value="Register"/>
       </form>
     </div>
